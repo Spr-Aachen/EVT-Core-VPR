@@ -1,12 +1,17 @@
 import torch
 import os
+import sys
 import numpy as np
 import shutil
-from pathlib import Path
 
-from .modules.ECAPA_TDNN import EcapaTdnn, SpeakerIdetification
-from .data_utils.Reader import load_audio, CustomDataset
-from .utils.Downloader import Execute_Model_Download
+from pathlib import Path
+current_dir = Path(__file__).absolute().parent.as_posix()
+sys.path.insert(0, f"{current_dir}")
+os.chdir(current_dir)
+
+from modules.ECAPA_TDNN import EcapaTdnn, SpeakerIdetification
+from data_utils.Reader import load_audio, CustomDataset
+from utils.Downloader import Execute_Model_Download
 
 
 class Voice_Identifying:
