@@ -1,8 +1,8 @@
 import torch
 import os
 import sys
+import glob
 import numpy as np
-import shutil
 
 from pathlib import Path
 current_dir = Path(__file__).absolute().parent.as_posix()
@@ -95,8 +95,10 @@ class Voice_Identifying:
         for Speaker, Audio_Path_Std in self.StdAudioSpeaker.items():
             if os.path.exists(Audio_Path_Std):
                 Feature1 = infer(Audio_Path_Std)[0]
-            for File_Name in os.listdir(self.Audio_Dir_Input):
-                Audio_Path_Chk = Path(self.Audio_Dir_Input).joinpath(File_Name).__str__()
+            PatternList = []
+            for Extension in ['*.flac', '*.wav', '*.mp3', '*.aac', '*.m4a', '*.wma', '*.aiff', '*.au', '*.ogg']:
+                PatternList.extend(glob.glob(Path(self.Audio_Dir_Input).joinpath(Extension).as_posix()))
+            for Audio_Path_Chk in PatternList:
                 Feature2 = infer(Audio_Path_Chk)[0]
                 # 对角余弦值
                 Dist = np.dot(Feature1, Feature2) / (np.linalg.norm(Feature1) * np.linalg.norm(Feature2))
