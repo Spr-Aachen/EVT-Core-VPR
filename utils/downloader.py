@@ -15,7 +15,7 @@ SHA256List = {
 }
 
 
-def Model_Download(url: str, root: str, name: str, format: str, expected_sha256: str) -> Tuple[Union[bytes, str], str]:
+def modelDownload(url: str, root: str, name: str, format: str, expected_sha256: str) -> Tuple[Union[bytes, str], str]:
     
     os.makedirs(root, exist_ok = True)
 
@@ -45,7 +45,7 @@ def Model_Download(url: str, root: str, name: str, format: str, expected_sha256:
     return model_bytes, download_target
 
 
-def Execute_Model_Download(
+def executeModelDownload(
     Model_Dir: str,
     Model_Name: str
 ):
@@ -53,7 +53,7 @@ def Execute_Model_Download(
     DownloadDir = Model_Dir
     Format = 'pth'
     SHA = SHA256List[Model_Name]
-    Model_Download(
+    modelDownload(
         url = URL,
         root = DownloadDir,
         name = Model_Name,

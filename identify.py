@@ -10,8 +10,8 @@ sys.path.insert(0, f"{current_dir}")
 os.chdir(current_dir)
 
 from modules.ECAPA_TDNN import EcapaTdnn, SpeakerIdetification
-from data_utils.Reader import load_audio, CustomDataset
-from utils.Downloader import Execute_Model_Download
+from data_utils.reader import load_audio, CustomDataset
+from utils.downloader import executeModelDownload
 
 
 class Voice_Identifying:
@@ -45,13 +45,13 @@ class Voice_Identifying:
 
         os.makedirs(os.path.dirname(self.AudioSpeakersData_Path), exist_ok = True)
 
-    def GetModel(self):
+    def getModel(self):
         '''
         Function to load model
         '''
         # Download Model
         if self.Model_Name in ['Ecapa-Tdnn_spectrogram', 'Ecapa-Tdnn_melspectrogram']:
-            Execute_Model_Download(self.Model_Dir, self.Model_Name)
+            executeModelDownload(self.Model_Dir, self.Model_Name)
 
         # 获取模型
         DataSet = CustomDataset(data_list_path = None, feature_method = self.Feature_Method)
@@ -77,7 +77,7 @@ class Voice_Identifying:
 
         #return self.Device, self.Model
 
-    def Inference(self):
+    def inference(self):
         '''
         Function to infer 
         '''
